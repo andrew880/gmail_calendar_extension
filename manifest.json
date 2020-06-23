@@ -1,15 +1,18 @@
 {
-	"name": "bear",
-	"version": "1.0",
-	"manifest_version": 2,
-	"content_scripts": [
-		{
-			"matches": ["<all_urls>"],
-			"js": ["content.js"]
-		}
-	],
-	"browser_action": {
-		"default_popup": "popup.html",
-		"default_title": "Bear"
-	}
+  "name": "bear",
+  "version": "1.0",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["jquery-3.5.1.min.js","content.js"]
+    }
+  ],
+  "browser_action": {
+    "default_title": "Bear"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["tabs"]
 }

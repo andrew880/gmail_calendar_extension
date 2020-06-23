@@ -1,10 +1,8 @@
-document.addEventListener("DOMContentLoaded", function() {
-  document.querySelector('button'),addEventListener('click', onclick, false)
+document.addEventListener('DOMContentLoaded', function () {
 
-  fuction onclick() {
-    chrome.tabs.query({currentWindow: true, active: true}),
-    fuction (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, hi)
-    }
-  }
-})
+  const bg = chrome.extension.getBackgroundPage()
+  Object.keys(bg.bears).forEach(function (url) {
+    const div = document.createElement('div')
+    div.textContent = `${url}: ${bg.bears[url]}`
+    document.body.appendChild(div)
+  })
