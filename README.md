@@ -19,3 +19,4 @@ a chrome extension that allows more convenient management of multiple functional
 9. allow customization of keyboard short cuts
 10. add other random utilities to toggle on
  | ex: youtube video save, gardening tools for website usage time management, saving recent copy paste data
+11. allow downloading and retrival of data from phone, either in web form or app form (execution tbd)
