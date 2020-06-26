@@ -121,7 +121,7 @@ var helpers = {
     }
 };
 window.lastNote = null;
-window.storedNotes = [];
+window.storedNotes = localStorage["notes"] == null ? []:JSON.parse(localStorage.getItem("notes"));
 window.noteColors = {
     blue: {
         title: "#c9ecf8",
@@ -148,11 +148,7 @@ window.noteColors = {
         body: "#ececec"
     }
 };
-var noteContainer = null
-  , stnButtonWrapper = null
-  , stnButton = null
-  , enable_stickynote_cbk = null
-  , footer = null;
+window.noteDomain = "google.com";
 var StickyNote = function(e, t) {
     var n = ["blue", "green", "pink", "purple", "yellow", "white"];
     this.id = helpers.uuid_v4();
@@ -516,10 +512,6 @@ var StickyNote = function(e, t) {
         syncNote(-1, e)
     }
 };
-StickyNote.prototype.remove = function(e) {
-    this.note.parentNode.removeChild(this.note);
-    delete this
-};
 function syncNote(e, t, n) {
     chrome.runtime.sendMessage({
         noteChange: {
@@ -536,112 +528,6 @@ function removeAllNotes() {
     noteContainer.innerHTML = "";
     window.storedNotes = [];
     window.lastNote = null
-}
-function addNoteSync(e) {
-    if (e && typeof e === "object") {
-        new StickyNote(e);
-        stnButton.innerHTML = "&#128465; Clear Notes"
-    }
-}
-function removeNoteSync(e) {
-    if (e && typeof e === "object") {
-        var t = window.storedNotes.findIndex(function(t) {
-            return t.id === e.id
-        });
-        if (t > -1) {
-            window.storedNotes.splice(t, 1);
-            window.lastNote = null;
-            if (window.storedNotes.length === 0) {
-                if (stnButton)
-                    stnButton.innerHTML = "+ New Note"
-            }
-        }
-        var n = document.querySelector('.sticky-note[data-id="' + e.id + '"]');
-        n && n.parentNode.removeChild(n)
-    }
-}
-function updateNoteSync(e) {
-    if (e && typeof e === "object") {
-        var t = document.querySelector('.sticky-note[data-id="' + e.id + '"]');
-        var n = window.noteColors[e.color];
-        t.style.top = e.top + "vh";
-        t.style.left = e.left + "vw";
-        t.style.width = e.width + "px";
-        t.style.height = e.height + "px";
-        t.style.backgroundColor = n.body;
-        var o = t.querySelector(".title-bar");
-        if (o)
-            o.style.backgroundColor = n.title;
-        var i = t.querySelector(".stn-content");
-        if (i) {
-            i.value = e.text;
-            i.style.fontSize = e.fontSize + "px"
-        }
-    }
-}
-function enableStickyNote(e, t) {
-    if (t) {
-        if (e) {
-            enable_stickynote_cbk.checked = true
-        } else {
-            enable_stickynote_cbk.checked = false
-        }
-    }
-    if (e) {
-        loadNotes()
-    } else {
-        noteContainer && noteContainer.parentNode.removeChild(noteContainer);
-        stnButtonWrapper && footer.removeChild(stnButtonWrapper);
-        stnButtonWrapper = null
-    }
-}
-function messageHandle() {
-    chrome.runtime.onMessage.addListener(function(e, t, n) {
-        if (e.updateNote) {
-            switch (e.updateNote.noteChange.type) {
-            case -2:
-                removeAllNotes();
-                break;
-            case -1:
-                removeNoteSync(e.updateNote.noteChange.data);
-                break;
-            case 0:
-                updateNoteSync(e.updateNote.noteChange.data);
-                break;
-            case 1:
-                addNoteSync(e.updateNote.noteChange.data);
-                break;
-            case 2:
-                enableStickyNote(e.updateNote.noteChange.data.enabled, true);
-                break;
-            default:
-                break
-            }
-            try {
-                window.storedNotes = JSON.parse(localStorage.getItem("notes"))
-            } catch (e) {
-                if (window.debug)
-                    console.log(e.message)
-            }
-        }
-        if (e.restoreNote) {
-            window.location.reload()
-        }
-    })
-}
-function loadNotes() {
-    createMenuButton();
-    noteContainer = document.getElementById("note-container");
-    if (!noteContainer) {
-        noteContainer = document.createElement("div");
-        noteContainer.id = "note-container";
-        document.getElementById("wrapper").appendChild(noteContainer)
-    }
-    if (window.storedNotes.length) {
-        window.storedNotes.forEach(function(e) {
-            new StickyNote(e)
-        })
-    }
 }
 function createNoteButton() {
     stnButtonWrapper = document.createElement("div");
@@ -678,30 +564,23 @@ function createNoteButton() {
         }
     });
     stnButtonWrapper.appendChild(stnButton);
-    document.body.appendChild(stnButtonWrapper);
+    return stnButtonWrapper;
 }
-function onLoad() {
-    var e = localStorage.getItem("enable_note");
-    var t = localStorage.getItem("notes");
-    if (t) {
-        try {
-            window.storedNotes = JSON.parse(t)
-        } catch (e) {
-            window.storedNotes = []
-        }
+function loadNotes() {
+    createNoteButton();
+    noteContainer = document.getElementById("note-container");
+    if (!noteContainer) {
+        noteContainer = document.createElement("div");
+        noteContainer.id = "note-container";
+        document.body.appendChild(noteContainer)
     }
-    enable_stickynote_cbk = window.enabled;
-    footer = document.getElementsByTagName("footer")[0];
-    if (e && e === "yes") {
-      enable_stickynote_cbk.checked = true;
-      loadNotes()
+    if (window.storedNotes.length) {
+      console.log(window.storedNotes);
+      console.log(window.storedNotes.length);
+      console.log(typeof window.storedNotes);
+      window.storedNotes.forEach((item, i) => {
+        console.log(item);
+        new StickyNote(item)
+      });
     }
-    messageHandle()
-    console.log("loaded");
 }
-window.addEventListener("load", onLoad);
-// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-//   console.log("sticky");
-//   console.log(window.enabled);
-//   //
-// });
