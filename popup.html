@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<script data-source="internal" type="text/javascript" src="/functions/stickynotes.js"></script>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,16 +8,49 @@
 <body>
   <button>Count Bears</button>
   <script src="popup.js" charset="utf-8"></script>
-  <li>
-                          <label data-toggle="tooltip" data-placement="top" title="Display / Hide &quot;Sticky Notes&quot; in newtab page">
-                              <span>Sticky Notes</span>
-                              <label for="enable_stickynote" class="switch normal" title="on/off">
-                                  <input type="checkbox" id="enable_stickynote" />
-                                  <span class="slider round"></span>
-                                  <span class="on">ON</span>
-                                  <span class="off">OFF</span>
-                              </label>
-                          </label>
-                        </li>
+  <a class="new-note-button">🗑 Clear Notes</a>
+  <div id="tab-setting">
+    <div class="t-r-a-s">
+        <ul>
+            <li>
+              <label data-toggle="tooltip" data-placement="top" title="Display / Hide &quot;Sticky Notes&quot; in newtab page">
+                  <span>Sticky Notes</span>
+                  <label for="enable_stickynote" class="switch normal" title="on/off">
+                      <input type="checkbox" id="enable_stickynote" />
+                      <span class="slider round"></span>
+                      <span class="on">ON</span>
+                      <span class="off">OFF</span>
+                  </label>
+              </label>
+            </li>
+
+            <li>
+                <label data-toggle="tooltip" data-placement="top" title="Display snow animation in newtab page">
+                    <span>Snow / Animations</span>
+                    <label class="switch normal" title="on/off">
+                        <input type="checkbox" id="enable_snow" />
+                        <span class="slider round"></span>
+                        <span class="on">ON</span>
+                        <span class="off">OFF</span>
+                    </label>
+                </label>
+            </li>
+            <li class="sub-li">
+                <label>
+                    <span>Choose An Animation</span>
+                    <label>
+                        <select id="snow_type" data-toggle="tooltip" data-placement="top" title="Choose a falling effect">
+                            <option value="flake">Snow flake</option>
+                            <option value="ball">Snow ball</option>
+                            <option value="rain">Rain</option>
+                            <option value="leaves">Leaves</option>
+                            <option value="fireworks">Fireworks</option>
+                        </select>
+                    </label>
+                </label>
+            </li>
+          </ul>
+        </div>
+      </div>
 </body>
 </html>

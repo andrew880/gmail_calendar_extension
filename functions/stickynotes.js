@@ -519,8 +519,7 @@ var StickyNote = function(e, t) {
 StickyNote.prototype.remove = function(e) {
     this.note.parentNode.removeChild(this.note);
     delete this
-}
-;
+};
 function syncNote(e, t, n) {
     chrome.runtime.sendMessage({
         noteChange: {
@@ -679,6 +678,7 @@ function createMenuButton() {
         }
     });
     stnButtonWrapper.appendChild(stnButton);
+    document.body.appendChild(stnButtonWrapper);
     footer.insertBefore(stnButtonWrapper, footer.childNodes[0])
 }
 function onLoad() {
@@ -691,19 +691,18 @@ function onLoad() {
             window.storedNotes = []
         }
     }
-    enable_stickynote_cbk = document.getElementById("enable_stickynote");
+    enable_stickynote_cbk = window.enabled;
     footer = document.getElementsByTagName("footer")[0];
     if (e && e === "yes") {
-        enable_stickynote_cbk.checked = true;
-        loadNotes()
+      enable_stickynote_cbk.checked = true;
+      loadNotes()
     }
-    enable_stickynote_cbk.addEventListener("change", function(e) {
-        enableStickyNote(e.target.checked);
-        syncNote(2, {
-            enabled: e.target.checked
-        });
-        localStorage.setItem("enable_note", e.target.checked ? "yes" : "no")
-    });
     messageHandle()
+    console.log("loaded");
 }
 window.addEventListener("load", onLoad);
+// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+//   console.log("sticky");
+//   console.log(window.enabled);
+//   //
+// });
