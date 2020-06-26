@@ -1,0 +1,195 @@
+
+/*Sticky notes*/
+.new-note-button-wrapper {
+  min-width: 120px;
+}
+#note-container {
+  overflow: hidden;
+}
+.sticky-note .stn-content::-webkit-scrollbar {
+  width: 8px; }
+  .sticky-note .stn-content::-webkit-scrollbar-track {
+    display: none; }
+  .sticky-note .stn-content::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: none;
+    display: none;
+    background: rgba(160, 160, 160, 0.8);
+    transition: all 1s; }
+  .sticky-note:hover .stn-content::-webkit-scrollbar-thumb {
+    display: unset; }
+  .sticky-note .stn-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(120, 120, 120, 0.8);}
+  .sticky-note .stn-content::-webkit-scrollbar-thumb:active {
+    background: rgba(80, 80, 80, 0.8); }
+  .sticky-note .stn-content::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(200, 200, 200, 0.4); }
+
+.sticky-note {
+  position: fixed;
+  border: none;
+  border-radius: 1px;
+  padding-top: 30px;
+  outline: none;
+  box-shadow: 2px 3px 7px 0 rgba(0, 0, 0, .2);
+  padding-right: 2px;
+  min-width: 200px;
+  min-height: 80px;
+  max-width: 800px;
+  max-height: 500px;
+  transform: translateZ(0);
+}
+.sticky-note .inner {
+  width: 100%;
+  height: 100%;
+}
+.sticky-note .title-bar {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+.sticky-note .stn-btn {
+  background: transparent;
+  border: none;
+  color: #AAA;}
+  .sticky-note .stn-btn:hover {
+    color: #555;}
+  .sticky-note .stn-btn:active {
+    color: #333;}
+.sticky-note .stn-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  color: #333;
+  outline: none;
+  padding: 5px;
+  overflow-y: auto;
+  font-family: 'Open Sans',sans-serif;
+  font-style: italic;
+}
+.stn-context-menu {
+  min-width: 120px;
+  background: white;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .05);
+  border-radius: 1px;
+  box-shadow: 2px 3px 7px 0 rgba(0, 0, 0, .2);
+  position: absolute;
+  z-index: 10000;
+}
+.stn-context-menu .context-menu-item {
+  width: 100%;
+  background: white;
+  cursor: default;
+  padding: 7px 10px;
+  vertical-align: middle;
+  font-family: inherit;
+  letter-spacing: 1px;
+}
+.stn-context-menu .context-menu-item:hover {
+  background: #F0E9E9;
+  opacity: .8;
+}
+.stn-context-menu .context-menu-item:active {
+  background: #DDCFCF;
+  opacity: .6;
+}
+
+.sticky-note .m-p-r {
+  background: transparent;
+  position: absolute;
+}
+.sticky-note .m-t {
+  width: 100%;
+  height: 4px;
+  top: -2px;
+  cursor: n-resize;
+}
+.sticky-note .m-l {
+  width: 4px;
+  height: 100%;
+  top: 0;
+  left: -2px;
+  cursor: w-resize;
+}
+.sticky-note .m-b {
+  width: 100%;
+  height: 4px;
+  bottom: -2px;
+  cursor: s-resize;
+}
+.sticky-note .m-b-r {
+  width: 10px;
+  height: 10px;
+  background: none;
+  bottom: -2px;
+  right: -2px;
+  cursor: se-resize;
+}
+.sticky-note .m-r {
+  width: 4px;
+  height: 100%;
+  top: 0;
+  right: -2px;
+  cursor: e-resize;
+}
+
+.sticky-note .separator{
+  height: 1px;
+  background: #dedede;
+  margin: 2px 0px 2px 0px;
+}
+
+/* Animation effects */
+.snowflake {
+  padding-left: 15px;
+  font-family: Cambria, Georgia, serif;
+  font-size: 14px;
+  line-height: 24px;
+  position: fixed;
+  user-select: none;
+  z-index: 99999;
+}
+
+.snowflake:hover {
+  cursor: default;
+}
+
+#raining-footer {
+  width: 100%;
+  height: 100px;
+  mix-blend-mode: screen;
+  cursor: default;
+  user-select: none;
+  pointer-events: none;
+  filter: brightness(100%) grayscale(100%);
+  background: url(/start/skin/images/raining-footer.gif) repeat;
+  background-size: contain;
+  background-position: -200px 0px;
+  position: absolute;
+  bottom: 0;
+  z-index: 999999;
+}
+
+.leaf-scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    transform-style: preserve-3d;
+}
+.leaf-scene div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: url(/start/skin/images/leaf.svg) no-repeat;
+  background-size: 100%;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+}

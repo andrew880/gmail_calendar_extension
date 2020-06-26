@@ -511,7 +511,15 @@ var StickyNote = function(e, t) {
     this.onRemoved = function(e) {
         syncNote(-1, e)
     }
+    this.remove = function(e) {
+        this.note.parentNode.removeChild(this.note);
+        delete this
+    }
 };
+// StickyNote.prototype.remove = function(e) {
+//     this.note.parentNode.removeChild(this.note);
+//     delete this
+// };
 function syncNote(e, t, n) {
     chrome.runtime.sendMessage({
         noteChange: {
@@ -528,6 +536,40 @@ function removeAllNotes() {
     noteContainer.innerHTML = "";
     window.storedNotes = [];
     window.lastNote = null
+}
+function messageHandle() {
+    chrome.runtime.onMessage.addListener(function(e, t, n) {
+        if (e.updateNote) {
+            switch (e.updateNote.noteChange.type) {
+            case -2:
+                removeAllNotes();
+                break;
+            case -1:
+                removeNoteSync(e.updateNote.noteChange.data);
+                break;
+            case 0:
+                updateNoteSync(e.updateNote.noteChange.data);
+                break;
+            case 1:
+                addNoteSync(e.updateNote.noteChange.data);
+                break;
+            case 2:
+                enableStickyNote(e.updateNote.noteChange.data.enabled, true);
+                break;
+            default:
+                break
+            }
+            try {
+                window.storedNotes = JSON.parse(localStorage.getItem("notes"))
+            } catch (e) {
+                if (window.debug)
+                    console.log(e.message)
+            }
+        }
+        if (e.restoreNote) {
+            window.location.reload()
+        }
+    })
 }
 function createNoteButton() {
     stnButtonWrapper = document.createElement("div");
@@ -564,7 +606,7 @@ function createNoteButton() {
         }
     });
     stnButtonWrapper.appendChild(stnButton);
-    return stnButtonWrapper;
+    window.menu.appendChild(stnButtonWrapper);
 }
 function loadNotes() {
     createNoteButton();
