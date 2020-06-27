@@ -516,10 +516,6 @@ var StickyNote = function(e, t) {
         delete this
     }
 };
-// StickyNote.prototype.remove = function(e) {
-//     this.note.parentNode.removeChild(this.note);
-//     delete this
-// };
 function syncNote(e, t, n) {
     chrome.runtime.sendMessage({
         noteChange: {
@@ -617,12 +613,9 @@ function loadNotes() {
         document.body.appendChild(noteContainer)
     }
     if (window.storedNotes.length) {
-      console.log(window.storedNotes);
-      console.log(window.storedNotes.length);
-      console.log(typeof window.storedNotes);
       window.storedNotes.forEach((item, i) => {
-        console.log(item);
         new StickyNote(item)
       });
     }
+    return "note-container";
 }
