@@ -1,4 +1,77 @@
+/*menu bar*/
+.menu-momo {
+  position: fixed;
+  border: none;
+  border-radius: 1px;
+  padding-top: 0px;
+  outline: none;
+  box-shadow: 2px 3px 7px 0 rgba(0, 0, 0, .2);
+  padding-right: 2px;
+  min-width: 42px;
+  min-height: 30px;
+  max-width: 162px;
+  max-height: 300px;
+  transform: translateZ(0);
+  background: transparent;
+  z-index: 101;
+}
+.menu-momo .inner {
+  width: 100%;
+  height: 100%;
+}
+.menu-momo .menu-bar {
+  position: absolute;
+  top: 0;
+  color:#AAA;
+  background: transparent;
+}
+.menu-momo .menu-bar:hover {
+  color: #555;
+}
+.menu-momo .m-p-r {
+  background: transparent;
+  position: absolute;
+}
+.menu-momo .m-t {
+  width: 100%;
+  height: 4px;
+  top: -2px;
+  cursor: n-resize;
+}
+.menu-momo .m-l {
+  width: 4px;
+  height: 100%;
+  top: 0;
+  left: -2px;
+  cursor: w-resize;
+}
+.menu-momo .m-b {
+  width: 100%;
+  height: 4px;
+  bottom: -2px;
+  cursor: s-resize;
+}
+.menu-momo .m-b-r {
+  width: 10px;
+  height: 10px;
+  background: none;
+  bottom: -2px;
+  right: -2px;
+  cursor: se-resize;
+}
+.menu-momo .m-r {
+  width: 4px;
+  height: 100%;
+  top: 0;
+  right: -2px;
+  cursor: e-resize;
+}
 
+.menu-momo .separator{
+  height: 1px;
+  background: #dedede;
+  margin: 2px 0px 2px 0px;
+}
 /*Sticky notes*/
 .new-note-button-wrapper {
   min-width: 120px;
@@ -39,6 +112,7 @@
   max-width: 800px;
   max-height: 500px;
   transform: translateZ(0);
+  z-index: 9;
 }
 .sticky-note .inner {
   width: 100%;
@@ -53,10 +127,10 @@
   background: transparent;
   border: none;
   color: #AAA;}
-  .sticky-note .stn-btn:hover {
-    color: #555;}
-  .sticky-note .stn-btn:active {
-    color: #333;}
+.sticky-note .stn-btn:hover {
+  color: #555;}
+.sticky-note .stn-btn:active {
+  color: #333;}
 .sticky-note .stn-content {
   position: relative;
   width: 100%;
