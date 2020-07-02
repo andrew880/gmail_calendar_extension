@@ -8,15 +8,30 @@ a chrome extension that allows more convenient management of multiple functional
 
 ## Development plan
 
-1. press button -> create overlay notes.
-2. overlay notes stays and stores in memory
-3. notes collapseable and draggable | notes could be universal or website domain specific
-4. calender overlay
-5. press button -> choose to create overlay notes | choose to add calender
-6. add keyboard short cut
-7. add setting page
-8. toggle functionalities in setting pages so that buttons appear when click extension icon
-9. allow customization of keyboard short cuts
-10. add other random utilities to toggle on
- | ex: youtube video save, gardening tools for website usage time management, saving recent copy paste data
-11. allow downloading and retrival of data from phone, either in web form or app form (execution tbd)
+#### sticky notes
+- [x] press button -> create overlay notes.
+- [x] overlay notes stays and stores in memory
+- [x] notes displayable and draggable
+- [ ] notes collapsible
+- [ ] notes could location lock (relative location with webpage vs relative location with browser)
+- [ ] notes could be universal or website domain specific
+#### menu bar
+- [x] menu bar for different buttons
+- [ ] menu bar collapsible onto side/top of browser
+#### calender
+- [ ] calender overlay
+- [x] press button -> choose to create overlay notes | choose to add calender
+#### settings
+- [ ] add keyboard short cut
+- [ ] add setting page
+- [ ] toggle functionalities in setting pages so that buttons appear when click extension icon
+- [ ] allow customization of keyboard short cuts
+
+#### other menu utilities
+- [ ] toggle white column
+- [ ] youtube video save
+- [ ] gardening tools for website usage time management
+
+#### other passive utilities
+- [ ] saving recent copy paste data
+- [ ] allow downloading and retrival of data from phone, either in web form or app form (execution tbd)
