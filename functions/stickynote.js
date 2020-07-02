@@ -528,10 +528,66 @@ function syncNote(e, t, n) {
 }
 function removeAllNotes() {
     localStorage.setItem("notes", "[]");
-    stnButton.innerHTML = "+ New note";
     noteContainer.innerHTML = "";
     window.storedNotes = [];
     window.lastNote = null
+}
+function addNoteSync(e) {
+    if (e && typeof e === "object") {
+        new StickyNote(e);
+    }
+}
+function removeNoteSync(e) {
+    if (e && typeof e === "object") {
+        var t = window.storedNotes.findIndex(function(t) {
+            return t.id === e.id
+        });
+        if (t > -1) {
+            window.storedNotes.splice(t, 1);
+            window.lastNote = null;
+            if (window.storedNotes.length === 0) {
+                if (stnButton)
+                    stnButton.innerHTML = "+ New Note"
+            }
+        }
+        var n = document.querySelector('.sticky-note[data-id="' + e.id + '"]');
+        n && n.parentNode.removeChild(n)
+    }
+}
+function updateNoteSync(e) {
+    if (e && typeof e === "object") {
+        var t = document.querySelector('.sticky-note[data-id="' + e.id + '"]');
+        var n = window.noteColors[e.color];
+        t.style.top = e.top + "vh";
+        t.style.left = e.left + "vw";
+        t.style.width = e.width + "px";
+        t.style.height = e.height + "px";
+        t.style.backgroundColor = n.body;
+        var o = t.querySelector(".title-bar");
+        if (o)
+            o.style.backgroundColor = n.title;
+        var i = t.querySelector(".stn-content");
+        if (i) {
+            i.value = e.text;
+            i.style.fontSize = e.fontSize + "px"
+        }
+    }
+}
+function enableStickyNote(e, t) {
+    if (t) {
+        if (e) {
+            enable_stickynote_cbk.checked = true
+        } else {
+            enable_stickynote_cbk.checked = false
+        }
+    }
+    if (e) {
+        loadNotes()
+    } else {
+        noteContainer && noteContainer.parentNode.removeChild(noteContainer);
+        stnButtonWrapper && footer.removeChild(stnButtonWrapper);
+        stnButtonWrapper = null
+    }
 }
 function messageHandle() {
     chrome.runtime.onMessage.addListener(function(e, t, n) {
@@ -571,37 +627,43 @@ function createNoteButton() {
     stnButtonWrapper = document.createElement("div");
     stnButtonWrapper.className = "new-note-button-wrapper";
     stnButton = document.createElement("button");
-    stnButton.className = "new-note-button";
-    stnButton.innerHTML = window.storedNotes.length > 0 ? "&#128465; Clear Notes" : "+ New note";
+    stnButton.className = "new-note-button momo-menu-button";
+    stnButton.innerHTML = "📄";
     stnButton.addEventListener("click", function(e) {
-        e.preventDefault();
-        if (window.storedNotes.length > 0) {
-            swal({
-                title: "",
-                text: "Do you want to remove all notes ?",
-                type: "warning",
-                html: false,
-                animation: false,
-                showConfirmButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes",
-                showCancelButton: true,
-                cancelButtonText: "No",
-                closeOnConfirm: true,
-                closeOnCancel: true
-            }, function(e) {
-                if (e) {
-                    removeAllNotes();
-                    syncNote(-2, {})
-                }
-            })
-        } else {
-            var t = new StickyNote(null,true);
-            syncNote(1, t.noteToSave);
-            stnButton.innerHTML = "&#128465; Clear Notes"
-        }
+      window.storedNotes = localStorage["notes"] == null ? []:JSON.parse(localStorage.getItem("notes"));
+      e.preventDefault();
+      var t = new StickyNote(null,true);
+      syncNote(1, t.noteToSave);
+      // stnButton.innerHTML = "&#128465; Clear Notes"
     });
     stnButtonWrapper.appendChild(stnButton);
+    clearButton = document.createElement("button");
+    clearButton.className = "clear-button momo-menu-button";
+    clearButton.innerHTML = "&#128465;";
+    clearButton.addEventListener("click", function(e) {
+      if (window.storedNotes.length > 0) {
+          swal({
+              title: "",
+              text: "Do you want to remove all notes ?",
+              type: "warning",
+              html: false,
+              animation: false,
+              showConfirmButton: true,
+              confirmButtonColor: "#DD6B55",
+              confirmButtonText: "Yes",
+              showCancelButton: true,
+              cancelButtonText: "No",
+              closeOnConfirm: true,
+              closeOnCancel: true
+          }, function(e) {
+              if (e) {
+                  removeAllNotes();
+                  syncNote(-2, {})
+              }
+          })
+      }
+    });
+    stnButtonWrapper.appendChild(clearButton);
     window.menu.appendChild(stnButtonWrapper);
 }
 function loadNotes() {

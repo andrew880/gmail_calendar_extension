@@ -22,49 +22,20 @@
 .menu-momo .menu-bar {
   position: absolute;
   top: 0;
+  left: -10px;
   color:#AAA;
   background: transparent;
 }
 .menu-momo .menu-bar:hover {
   color: #555;
 }
-.menu-momo .m-p-r {
-  background: transparent;
-  position: absolute;
-}
-.menu-momo .m-t {
-  width: 100%;
-  height: 4px;
-  top: -2px;
-  cursor: n-resize;
-}
-.menu-momo .m-l {
-  width: 4px;
-  height: 100%;
-  top: 0;
-  left: -2px;
-  cursor: w-resize;
-}
-.menu-momo .m-b {
-  width: 100%;
-  height: 4px;
-  bottom: -2px;
-  cursor: s-resize;
-}
-.menu-momo .m-b-r {
-  width: 10px;
-  height: 10px;
-  background: none;
-  bottom: -2px;
-  right: -2px;
-  cursor: se-resize;
-}
-.menu-momo .m-r {
-  width: 4px;
-  height: 100%;
-  top: 0;
-  right: -2px;
-  cursor: e-resize;
+
+.momo-menu-button {
+  border-radius: 5px;
+  padding: 2px;
+  margin-left: 5px;
+
+  margin-top: 2px;
 }
 
 .menu-momo .separator{
