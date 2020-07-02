@@ -23,8 +23,9 @@ function createMenuButton() {
   var menu = document.createElement("div");
   menu.label = "menu";
   menu.className = "menu-momo";
-  menu.style.top = helpers.pxTOvh(150) + "vh";
-  menu.style.left = helpers.pxTOvw(100) + "vw";
+  menu.style.top = helpers.pxTOvh(7) + "vh";
+  console.log(window.innerWidth);
+  menu.style.left = helpers.pxTOvw(window.innerWidth *.77) + "vw";
   menu.style.width = 30 + "px";
   menu.style.height = 30 + "px";
   // var y = document.createElement("div");

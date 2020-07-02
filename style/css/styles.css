@@ -30,12 +30,21 @@
   color: #555;
 }
 
-.momo-menu-button {
+.menu-momo .momo-menu-button {
   border-radius: 5px;
-  padding: 2px;
+  padding: 4px;
   margin-left: 5px;
-
   margin-top: 2px;
+  border: hidden;
+  background: transparent;
+}
+.menu-momo .momo-menu-button:hover {
+  border-radius: 5px;
+  padding: 4px;
+  margin-left: 5px;
+  margin-top: 2px;
+  border: hidden;
+  background: linen;
 }
 
 .menu-momo .separator{

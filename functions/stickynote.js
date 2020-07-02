@@ -25,8 +25,8 @@ function dragElement(e, t, n) {
         e.style.left = helpers.pxTOvw(e.offsetLeft - o) + "vw"
     }
     function d() {
-        if (e.offsetTop < 80) {
-            e.style.top = helpers.pxTOvh(80) + "vh"
+        if (e.offsetTop < 5) {
+            e.style.top = helpers.pxTOvh(5) + "vh"
         }
         if (window.innerHeight - e.offsetTop < 30) {
             e.style.top = helpers.pxTOvh(window.innerHeight - 80) + "vh"
@@ -240,10 +240,6 @@ var StickyNote = function(e, t) {
             var n = window.storedNotes[t];
             window.storedNotes.splice(t, 1);
             window.lastNote = null;
-            if (window.storedNotes.length === 0) {
-                if (stnButton)
-                    stnButton.innerHTML = "+ New Note"
-            }
             o.remove();
             o.onRemoved && o.onRemoved(n)
         }
