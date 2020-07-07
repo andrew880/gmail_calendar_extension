@@ -1,5 +1,5 @@
-window.menu = createMenuButton();
-noteContainerId = loadNotes();
+window.menu = createMenu();
+var menuItemsId = loadMenuItems();
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   console.log(message);
   if (message.status == "enabled")
@@ -11,7 +11,7 @@ function enableUI(enabled) {
   noteContainer = document.getElementById(noteContainerId);
   noteContainer.style.display = enabled ? "block" : "none";
 }
-function createMenuButton() {
+function createMenu() {
   var bar = document.createElement("div");
   bar.className = "menu-bar";
   bar.style.width = "12px";
@@ -43,6 +43,14 @@ function createMenuButton() {
   dragElement(menu, bar, null);
   return menu;
 }
-// var menu = function() {
-//   var
-// }
+
+function loadMenuItems() {
+  items = {}
+  //create note button & note comtainer
+  createNoteButton();
+  notesId = loadNotesContainer();
+  items["notesId"] = notesId;
+  // calenderId = loadCalender();
+  // items["calenderId"] = calenderId;
+  return items;
+}

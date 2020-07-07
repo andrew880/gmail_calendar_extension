@@ -662,8 +662,8 @@ function createNoteButton() {
     stnButtonWrapper.appendChild(clearButton);
     window.menu.appendChild(stnButtonWrapper);
 }
-function loadNotes() {
-    createNoteButton();
+function loadNotesContainer() {
+    //createNoteButton();
     noteContainer = document.getElementById("note-container");
     if (!noteContainer) {
         noteContainer = document.createElement("div");
