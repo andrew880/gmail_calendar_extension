@@ -660,7 +660,7 @@ function createNoteButton() {
       }
     });
     stnButtonWrapper.appendChild(clearButton);
-    window.menu.appendChild(stnButtonWrapper);
+    return stnButtonWrapper;
 }
 function loadNotesContainer() {
     //createNoteButton();
@@ -668,12 +668,11 @@ function loadNotesContainer() {
     if (!noteContainer) {
         noteContainer = document.createElement("div");
         noteContainer.id = "note-container";
-        document.body.appendChild(noteContainer)
     }
     if (window.storedNotes.length) {
       window.storedNotes.forEach((item, i) => {
         new StickyNote(item)
       });
     }
-    return "note-container";
+    return noteContainer;
 }

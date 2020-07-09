@@ -1,15 +1,22 @@
 window.menu = createMenu();
-var menuItemsId = loadMenuItems();
+window.menuItems;
+window.menuItemsId = loadMenuItems();
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   console.log(message);
-  if (message.status == "enabled")
-    enableUI(message.enabled);
+  if (message.status == "enabled") {
+    displayUI(message.enabled, message.displayItems);
+  }
 });
 
-function enableUI(enabled) {
+function displayUI(enabled, displayItem) {
   window.menu.style.display = enabled ? "block" : "none";
-  noteContainer = document.getElementById(noteContainerId);
-  noteContainer.style.display = enabled ? "block" : "none";
+  menuItemsId.forEach((id, i) => {
+    item = document.getElementById(id);
+    item.style.display = displayItem[id] ? "block" : "none";
+  });
+  menuItems.style.display =  enabled ? "block" : "none";
+  // noteContainer = document.getElementById(menuItemsId['notesId']);
+  // noteContainer.style.display = enabled ? "block" : "none";
 }
 function createMenu() {
   var bar = document.createElement("div");
@@ -28,29 +35,30 @@ function createMenu() {
   menu.style.left = helpers.pxTOvw(window.innerWidth *.77) + "vw";
   menu.style.width = 30 + "px";
   menu.style.height = 30 + "px";
-  // var y = document.createElement("div");
-  // y.className = "m-p-r m-b";
-  // var g = document.createElement("div");
-  // g.className = "m-p-r m-r";
-  // var N = document.createElement("div");
-  // N.className = "m-p-r m-b-r";
-  // menu.appendChild(y);
-  // menu.appendChild(g);
-  // menu.appendChild(N);
   menu.appendChild(bar);
   document.body.appendChild(menu);
-
   dragElement(menu, bar, null);
+
+  //add note, calendar button
+  menu.appendChild(createNoteButton());
+  menu.appendChild(createCalendarButton());
+
   return menu;
 }
 
 function loadMenuItems() {
+  menuItems = document.createElement("div");
   items = {}
-  //create note button & note comtainer
-  createNoteButton();
-  notesId = loadNotesContainer();
-  items["notesId"] = notesId;
-  // calenderId = loadCalender();
-  // items["calenderId"] = calenderId;
+  //create note button & note comtainer from stickynote.js
+  notes = loadNotesContainer();
+  menuItems.appendChild(notes);
+  items["notes"] = notes.id;
+  //create calendar from gcalendar.js
+  calendar = loadcalendar();
+  menuItems.appendChild(calendar);
+  items["calendar"] = calendar.id;
+
+  document.body.appendChild(menuItems);
+  window.menuItems = menuItems;
   return items;
 }
