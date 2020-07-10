@@ -1,21 +1,21 @@
 window.menu = createMenu();
-window.menuItems;
-window.menuItemsId = loadMenuItems();
+window.menuItemsId, window.menuItems = loadMenuItems();
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   console.log(message);
-  if (message.status == "enabled") {
+  if (message.status == "enable") {
     displayUI(message.enabled, message.displayItems);
   }
 });
 
 function displayUI(enabled, displayItem) {
   window.menu.style.display = enabled ? "block" : "none";
-  menuItemsId.forEach((id, i) => {
-    item = document.getElementById(id);
-    item.style.display = displayItem[id] ? "block" : "none";
-  });
-  menuItems.style.display =  enabled ? "block" : "none";
-  // noteContainer = document.getElementById(menuItemsId['notesId']);
+  window.menuItems.style.display =  enabled ? "block" : "none";
+  for(var key in window.menuItemsId) {
+    item = document.getElementById(window.menuItemsId[key]);
+    item.style.display = displayItem[window.menuItemsId[key]] ? "block" : "none";
+  }
+  console.log(enabled);
+  // noteContainer = document.getElementById(menuItemsId["notesId"]);
   // noteContainer.style.display = enabled ? "block" : "none";
 }
 function createMenu() {
@@ -48,17 +48,17 @@ function createMenu() {
 
 function loadMenuItems() {
   menuItems = document.createElement("div");
-  items = {}
+  menuItems.id = "menu-items-container";
+  menuItemsId = {}
   //create note button & note comtainer from stickynote.js
   notes = loadNotesContainer();
   menuItems.appendChild(notes);
-  items["notes"] = notes.id;
+  menuItemsId["notes"] = notes.id;
   //create calendar from gcalendar.js
   calendar = loadcalendar();
   menuItems.appendChild(calendar);
-  items["calendar"] = calendar.id;
+  menuItemsId["calendar"] = calendar.id;
 
   document.body.appendChild(menuItems);
-  window.menuItems = menuItems;
-  return items;
+  return menuItemsId, menuItems;
 }

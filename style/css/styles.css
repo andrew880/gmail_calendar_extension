@@ -52,6 +52,10 @@
   background: #dedede;
   margin: 2px 0px 2px 0px;
 }
+/*general item container*/
+.momo-container {
+  display: inherit;
+}
 /*Sticky notes*/
 .new-note-button-wrapper {
   min-width: 120px;

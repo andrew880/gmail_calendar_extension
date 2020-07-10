@@ -668,6 +668,7 @@ function loadNotesContainer() {
     if (!noteContainer) {
         noteContainer = document.createElement("div");
         noteContainer.id = "note-container";
+        noteContainer.className = "momo-container";
     }
     if (window.storedNotes.length) {
       window.storedNotes.forEach((item, i) => {

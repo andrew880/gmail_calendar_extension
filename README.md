@@ -12,15 +12,17 @@ a chrome extension that allows more convenient management of multiple functional
 - [x] press button -> create overlay notes.
 - [x] overlay notes stays and stores in memory
 - [x] notes displayable and draggable
+- [x] press button -> choose to create overlay notes
 - [ ] notes collapsible
 - [ ] notes could location lock (relative location with webpage vs relative location with browser)
 - [ ] notes could be universal or website domain specific
 #### menu bar
 - [x] menu bar for different buttons
 - [ ] menu bar collapsible onto side/top of browser
-#### calender
-- [ ] calender overlay
-- [x] press button -> choose to create overlay notes | choose to add calender
+#### calendar
+- [x] calendar display
+- [ ] calendar overlay
+- [x] press button -> choose to show Calendar
 #### settings
 - [ ] add keyboard short cut
 - [ ] add setting page

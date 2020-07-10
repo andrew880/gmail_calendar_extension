@@ -117,6 +117,7 @@
 function loadcalendar() {
   var calendarContainer = document.createElement("div");
   calendarContainer.id = 'calendar-container';
+  calendarContainer.className = 'momo-container';
   var authbtn = document.createElement("button");
   authbtn.id = 'authorize_button';
   var signoutbtn = document.createElement("button");
@@ -131,14 +132,14 @@ function loadcalendar() {
 }
 
 function createCalendarButton() {
-  stnButtonWrapper = document.createElement("div");
-  stnButtonWrapper.className = "calendar-button-wrapper";
-  stnButton = document.createElement("button");
-  stnButton.className = "new-note-button momo-menu-button";
-  stnButton.innerHTML = "📅";
-  stnButton.addEventListener("click", function(e) {
-    chrome.runtime.sendMessage({status: "display", itemId: "calendar-container"}, function(response) {
-      item = document.getElementById('calender-container');
+  stnButtonWrapper = document.createElement('div');
+  stnButtonWrapper.className = 'calendar-button-wrapper';
+  stnButton = document.createElement('button');
+  stnButton.className = 'new-note-button momo-menu-button';
+  stnButton.innerHTML = '📅';
+  stnButton.addEventListener('click', function(e) {
+    chrome.runtime.sendMessage({status: 'display', itemId: 'calendar-container'}, function(response) {
+      item = document.getElementById('calendar-container');
       item.style.display = response.display ? 'block' : 'none';
     });
   });

@@ -1,6 +1,6 @@
 console.log("background start")
 enabled = true
-displayItems = {'notes-container': true, 'calendar-container': true}
+displayItems = {'note-container': true, 'calendar-container': true}
 window.type = 2
 msg = {
   updateNote: {noteChange: {type: window.type}}
@@ -17,5 +17,11 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.status == "display") {
     displayItems[message.itemId] = !displayItems[message.itemId];
     sendResponse({display: displayItems[message.itemId]});
+  }
+  if (message.status == "init") {
+    displayItems = {};
+    for(var key in message.displayItemsId) {
+      displayItemsId[message.displayItemsId[key]] = true;
+    }
   }
 });
