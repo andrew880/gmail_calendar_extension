@@ -55,6 +55,8 @@
 /*general item container*/
 .momo-container {
   display: inherit;
+  position: absolute;
+  z-index: 100
 }
 /*Sticky notes*/
 .new-note-button-wrapper {

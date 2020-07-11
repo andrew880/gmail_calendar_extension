@@ -14,7 +14,7 @@
     "default_title": "Momo"
   },
   "background": {
-    "scripts": ["background.js", "popup.js"]
+    "scripts": ["background-display.js", "background-items", "popup.js"]
   },
   "permissions": ["tabs"]
 }

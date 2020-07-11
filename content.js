@@ -1,9 +1,18 @@
 window.menu = createMenu();
 window.menuItemsId, window.menuItems = loadMenuItems();
+// initClient();
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   console.log(message);
   if (message.status == "enable") {
     displayUI(message.enabled, message.displayItems);
+  }
+  //when tab is unloaded
+  //store currrent data into localstorage to ensure sync across tabs
+  if (message.status == "saveTabContent") {
+    storeItemContent();
+  }
+  if (message.status == "updateTabContent") {
+    console.log(updateItemContent());
   }
 });
 
@@ -14,9 +23,12 @@ function displayUI(enabled, displayItem) {
     item = document.getElementById(window.menuItemsId[key]);
     item.style.display = displayItem[window.menuItemsId[key]] ? "block" : "none";
   }
-  console.log(enabled);
-  // noteContainer = document.getElementById(menuItemsId["notesId"]);
-  // noteContainer.style.display = enabled ? "block" : "none";
+}
+function storeItemContent() {
+  storeNoteContent();
+}
+function updateItemContent() {
+  updateNoteContent();
 }
 function createMenu() {
   var bar = document.createElement("div");
@@ -31,7 +43,6 @@ function createMenu() {
   menu.label = "menu";
   menu.className = "menu-momo";
   menu.style.top = helpers.pxTOvh(7) + "vh";
-  console.log(window.innerWidth);
   menu.style.left = helpers.pxTOvw(window.innerWidth *.77) + "vw";
   menu.style.width = 30 + "px";
   menu.style.height = 30 + "px";

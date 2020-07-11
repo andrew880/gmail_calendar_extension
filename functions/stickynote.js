@@ -178,6 +178,7 @@ var StickyNote = function(e, t) {
             this.fontSize = e.fontSize
     }
     var o = this;
+    //titlebar
     var i = document.createElement("div");
     i.className = "title-bar";
     i.style.height = "28px";
@@ -185,6 +186,7 @@ var StickyNote = function(e, t) {
     i.addEventListener("click", function(e) {
         e.stopPropagation()
     });
+    //create new note
     var s = document.createElement("button");
     s.className = "stn-btn";
     s.innerHTML = "&#10010;";
@@ -223,6 +225,7 @@ var StickyNote = function(e, t) {
         e.stopPropagation();
         e.preventDefault()
     });
+    //delete note
     var r = document.createElement("button");
     r.className = "stn-btn";
     r.innerHTML = "&#10006;";
@@ -248,16 +251,30 @@ var StickyNote = function(e, t) {
         e.preventDefault();
         e.stopPropagation()
     });
+    //minimize note
+    var minimize = document.createElement("button");
+    minimize.className = "stn-btn";
+    minimize.innerHTML = "&#9866;";
+    minimize.style.display = e && e.upset ? "" : "none";
+    minimize.style.float = "right";
+    minimize.setAttribute("title", "Minimize");
+    minimize.addEventListener("click", function(e) {
+
+    });
+
     i.appendChild(s);
     i.appendChild(r);
+    i.appendChild(minimize);
     this.titlebar = i;
     function l() {
         s.style.display = "initial";
-        r.style.display = "initial"
+        r.style.display = "initial";
+        minimize.style.display = "initial";
     }
     function a() {
         s.style.display = "none";
-        r.style.display = "none"
+        r.style.display = "none";
+        minimize.style.display = "none";
     }
     var d = document.createElement("div");
     d.className = "sticky-note";
@@ -519,8 +536,8 @@ function syncNote(e, t, n) {
             data: t,
             options: n
         }
-    }, function(e) {});
-    localStorage.setItem("notes", JSON.stringify(window.storedNotes))
+    });
+    localStorage.setItem("notes", JSON.stringify(window.storedNotes));
 }
 function removeAllNotes() {
     localStorage.setItem("notes", "[]");
@@ -630,7 +647,6 @@ function createNoteButton() {
       e.preventDefault();
       var t = new StickyNote(null,true);
       syncNote(1, t.noteToSave);
-      // stnButton.innerHTML = "&#128465; Clear Notes"
     });
     stnButtonWrapper.appendChild(stnButton);
     clearButton = document.createElement("button");
@@ -676,4 +692,29 @@ function loadNotesContainer() {
       });
     }
     return noteContainer;
+}
+function storeNoteContent() {
+  //store notecontent to locolstorage
+  localStorage.setItem("notes", JSON.stringify(window.storedNotes));
+}
+function updateNoteContent() {
+  noteContainer = document.getElementById("note-container");
+  console.log(noteContainer);
+  if (!noteContainer) {
+      noteContainer = document.createElement("div");
+      noteContainer.id = "note-container";
+      noteContainer.className = "momo-container";
+  }
+  noteContainer.innerHTML = "";
+  console.log(noteContainer);
+  window.storedNotes = JSON.parse(localStorage.getItem("notes"));
+  if (window.storedNotes.length) {
+    window.storedNotes.forEach((item, i) => {
+      new StickyNote(item)
+    });
+    console.log(window.storedNotes);
+  }
+  console.log(noteContainer)
+  console.log("_______")
+  return noteContainer.innerHTML;
 }
