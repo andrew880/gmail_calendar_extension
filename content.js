@@ -1,8 +1,11 @@
+//initialize at tab load
 window.menu = createMenu();
 window.menuItemsId, window.menuItems = loadMenuItems();
-// initClient();
+chrome.runtime.sendMessage({status: "displayUI"}, function(response) {
+  displayUI(response.enabled, response.displayItems);
+});
+//updaes
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  console.log(message);
   if (message.status == "enable") {
     displayUI(message.enabled, message.displayItems);
   }
@@ -12,16 +15,16 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     storeItemContent();
   }
   if (message.status == "updateTabContent") {
-    console.log(updateItemContent());
+    updateItemContent();
   }
 });
-
-function displayUI(enabled, displayItem) {
+//functions
+function displayUI(enabled, displayItems) {
   window.menu.style.display = enabled ? "block" : "none";
   window.menuItems.style.display =  enabled ? "block" : "none";
   for(var key in window.menuItemsId) {
     item = document.getElementById(window.menuItemsId[key]);
-    item.style.display = displayItem[window.menuItemsId[key]] ? "block" : "none";
+    item.style.display = displayItems[window.menuItemsId[key]] ? "block" : "none";
   }
 }
 function storeItemContent() {
@@ -53,15 +56,14 @@ function createMenu() {
   //add note, calendar button
   menu.appendChild(createNoteButton());
   menu.appendChild(createCalendarButton());
-
+  menu.appendChild(createWhitebaordButton());
   return menu;
 }
-
 function loadMenuItems() {
   menuItems = document.createElement("div");
   menuItems.id = "menu-items-container";
   menuItemsId = {}
-  //create note button & note comtainer from stickynote.js
+  //create note comtainer from stickynote.js
   notes = loadNotesContainer();
   menuItems.appendChild(notes);
   menuItemsId["notes"] = notes.id;
@@ -69,7 +71,10 @@ function loadMenuItems() {
   calendar = loadcalendar();
   menuItems.appendChild(calendar);
   menuItemsId["calendar"] = calendar.id;
-
+  //create whiteboard
+  whiteboard = loadwhiteboard();
+  menuItems.appendChild(whiteboard);
+  menuItemsId["whiteboard"] = whiteboard.id;
   document.body.appendChild(menuItems);
   return menuItemsId, menuItems;
 }

@@ -157,6 +157,8 @@ var StickyNote = function(e, t) {
     this.left = helpers.pxTOvw(50);
     this.width = 180;
     this.height = 150;
+    this.minHeight = 69;
+    this.minWidth = 0;
     this.color = n[Math.floor(Math.random() * n.length)];
     this.fontSize = 16;
     if (e && typeof e === "object") {
@@ -186,7 +188,7 @@ var StickyNote = function(e, t) {
     i.addEventListener("click", function(e) {
         e.stopPropagation()
     });
-    //create new note
+    //create new note btn
     var s = document.createElement("button");
     s.className = "stn-btn";
     s.innerHTML = "&#10010;";
@@ -225,7 +227,7 @@ var StickyNote = function(e, t) {
         e.stopPropagation();
         e.preventDefault()
     });
-    //delete note
+    //delete note btn
     var r = document.createElement("button");
     r.className = "stn-btn";
     r.innerHTML = "&#10006;";
@@ -251,17 +253,47 @@ var StickyNote = function(e, t) {
         e.preventDefault();
         e.stopPropagation()
     });
-    //minimize note
+    //minimize note btn
     var minimize = document.createElement("button");
     minimize.className = "stn-btn";
     minimize.innerHTML = "&#9866;";
     minimize.style.display = e && e.upset ? "" : "none";
     minimize.style.float = "right";
     minimize.setAttribute("title", "Minimize");
+    this.minimized = false;
     minimize.addEventListener("click", function(e) {
-
+      minExpand();
     });
-
+    function minExpand() {
+      if (!window.minimized) {
+        // minimize.parentNode.parentNode.parentNode.style.display = "none";
+        Array.from(minimize.parentNode.parentNode.getElementsByClassName("stn-content")).forEach((item, i) => {
+          item.style.display = "none";
+        });
+        p = minimize.parentNode.parentNode.parentNode;
+        p.style.height = 0 + "px";
+        p.style.width = 69 + "px";
+        p.className = "sticky-note sticky-note-min";
+        // minimize.parentNode.getElementsByClassName("stn-btn").forEach((item, i) => {
+        //   item.style.display = "block";
+        // });
+        minimize.style.display = e && e.upset ? "" : "none";
+        minimize.innerHTML = "&#10064;";
+        minimize.setAttribute("title", "Expand");
+      } else {
+        minimize.innerHTML = "&#9866;";
+        Array.from(minimize.parentNode.parentNode.getElementsByClassName("stn-content")).forEach((item, i) => {
+          item.style.display = "";
+        });
+        p = minimize.parentNode.parentNode.parentNode;
+        p.style.height = this.height + "px";
+        p.style.width = this.width  + "px";
+        p.className = "sticky-note sticky-note-size";
+        // minimize.parentNode.getElementsByClassName("stn-btn").style.display = e && e.upset ? "" : "none";
+        minimize.setAttribute("title", "Minimize");
+      }
+      window.minimized = !window.minimized;
+    }
     i.appendChild(s);
     i.appendChild(r);
     i.appendChild(minimize);
@@ -495,20 +527,16 @@ var StickyNote = function(e, t) {
     }
     this.onAddButtonClick = function(e) {
         syncNote(1, e.noteToSave)
-    }
-    ;
+    };
     this.onTextChange = function(e, t) {
         syncNote(0, t)
-    }
-    ;
+    };
     this.onFontSizeChange = function(e) {
         syncNote(0, e)
-    }
-    ;
+    };
     this.onColorChange = function(e) {
         syncNote(0, e)
-    }
-    ;
+    };
     function b(e) {
         var t = window.storedNotes.find(function(t) {
             return t.id === e.dataset.id
@@ -699,22 +727,17 @@ function storeNoteContent() {
 }
 function updateNoteContent() {
   noteContainer = document.getElementById("note-container");
-  console.log(noteContainer);
   if (!noteContainer) {
       noteContainer = document.createElement("div");
       noteContainer.id = "note-container";
       noteContainer.className = "momo-container";
   }
   noteContainer.innerHTML = "";
-  console.log(noteContainer);
   window.storedNotes = JSON.parse(localStorage.getItem("notes"));
   if (window.storedNotes.length) {
     window.storedNotes.forEach((item, i) => {
       new StickyNote(item)
     });
-    console.log(window.storedNotes);
   }
-  console.log(noteContainer)
-  console.log("_______")
   return noteContainer.innerHTML;
 }
