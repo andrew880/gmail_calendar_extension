@@ -13,7 +13,7 @@ a chrome extension that allows more convenient management of multiple functional
 - [x] overlay notes stays and stores in memory
 - [x] notes displayable and draggable
 - [x] press button -> choose to create overlay notes
-- [ ] notes collapsible
+- [x] notes collapsible
 - [ ] notes could location lock (relative location with webpage vs relative location with browser)
 - [ ] notes could be universal or website domain specific
 #### menu bar
@@ -30,7 +30,7 @@ a chrome extension that allows more convenient management of multiple functional
 - [ ] allow customization of keyboard short cuts
 
 #### other menu utilities
-- [ ] toggle white column
+- [x] toggle white column
 - [ ] youtube video save
 - [ ] gardening tools for website usage time management
 
