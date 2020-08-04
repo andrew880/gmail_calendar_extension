@@ -1,4 +1,4 @@
-# memo_assistant_extension
+# web_note_extension
 a chrome extension that allows more convenient management of multiple functionalities:
  - gmails into calender
  - overlay UI for gcalender
