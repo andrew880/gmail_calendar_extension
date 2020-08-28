@@ -6,6 +6,11 @@ a chrome extension that allows more convenient management of multiple functional
  - building a todo list
  - more toggle functionalities to explore
 
+## DEMO
+
+![Image of notes](https://github.com/andrew880/web_note_extension/blob/master/Annotation%202020-07-27%20145755.JPEG)
+![Image of note panel](https://github.com/andrew880/web_note_extension/blob/master/Annotation%202020-07-27%20145907.JPEG)
+
 ## Development plan
 
 #### sticky notes
