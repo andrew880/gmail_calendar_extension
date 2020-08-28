@@ -9,6 +9,10 @@
   padding-right: 2px;
   min-width: 42px;
   min-height: 30px;
+  width: 30px;
+  height: 30px;
+  top: 0px;
+  right: 0px;
   max-width: 162px;
   max-height: 300px;
   transform: translateZ(0);
@@ -24,7 +28,9 @@
   top: 0;
   left: -10px;
   color:#AAA;
-  background: transparent;
+  background: black;
+  width: 12px;
+  height: 30px;
 }
 .menu-momo .menu-bar:hover {
   color: #555;
@@ -58,6 +64,57 @@
   position: absolute;
   z-index: 100
 }
+/*calendar*/
+#calendar-container-header {
+  padding: 10px;
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+/*sideboard*/
+.sideboard {/* set with javascript*/
+  width: 250px; /* 250 width*/
+  position: absolute; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  right: 0;
+  background-color: papayawhip; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+.sideboard-elements {
+  right: 10px;
+  position: inherit;
+}
+.sideboard tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+.tab button:hover {
+  background-color: #ddd;
+}
+.tab button.active {
+  background-color: #ccc;
+}
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
 /*Sticky notes*/
 .new-note-button-wrapper {
   min-width: 120px;
@@ -103,9 +160,9 @@
   max-height: 500px;
 }
 .sticky-note-min {
-  width: 69px;
+  width: 70px;
   height: 0px;
-  min-width: 69px;
+  min-width: 70px;
   min-height: 0px;
 }
 .sticky-note .inner {

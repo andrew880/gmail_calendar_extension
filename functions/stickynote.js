@@ -25,8 +25,8 @@ function dragElement(e, t, n) {
         e.style.left = helpers.pxTOvw(e.offsetLeft - o) + "vw"
     }
     function d() {
-        if (e.offsetTop < 5) {
-            e.style.top = helpers.pxTOvh(5) + "vh"
+        if (e.offsetTop < 80) {
+            e.style.top = helpers.pxTOvh(80) + "vh"
         }
         if (window.innerHeight - e.offsetTop < 30) {
             e.style.top = helpers.pxTOvh(window.innerHeight - 80) + "vh"
@@ -214,7 +214,7 @@ var StickyNote = function(e, t) {
         if (n + helpers.pxTOvw(d.offsetWidth) < helpers.pxTOvw(30)) {
             n = helpers.pxTOvw(-100)
         }
-        if (n + helpers.pxTOvw(d.offsetWidth) > helpers.pxTOvw(window.innerWidth)) {
+        if (n + helpers.pxTOvw(d.offsetWidth) > helpers.pxTOvw(window.Width)) {
             n = helpers.pxTOvw(window.lastNote.offsetLeft + window.lastNote.offsetWidth + 30 - window.innerWidth)
         }
         var i = new StickyNote({
@@ -260,53 +260,78 @@ var StickyNote = function(e, t) {
     minimize.style.display = e && e.upset ? "" : "none";
     minimize.style.float = "right";
     minimize.setAttribute("title", "Minimize");
-    this.minimized = false;
     minimize.addEventListener("click", function(e) {
       minExpand();
     });
+    //pin note btn
+    var pin = document.createElement("button");
+    pin.className = "stn-btn";
+    pin.innerHTML = "&#9830;";
+    pin.style.display = e && e.upset ? "" : "none";
+    pin.style.float = "right";
+    pin.setAttribute("title", "pin");
+    pin.addEventListener("click", function(e) {
+      p = pin.parentNode.parentNode.parentNode;
+      if (p.getAttribute("pin") == "") {
+        p.setAttribute("pin", p.style.position);
+      }
+      p.setAttribute("pin", p.getAttribute("pin") == "fixed" ? "absolute" : "fixed");
+      p.style.position = p.getAttribute("pin");
+      pin.innerHTML = p.getAttribute("pin") == "fixed" ? "&#9826;" : "&#9830;";
+    });
     function minExpand() {
-      if (!window.minimized) {
+      p = minimize.parentNode.parentNode.parentNode;
+      minimized = p.getAttribute("data-min");
+      if (minimized == "false" || minimized != "true") {
         // minimize.parentNode.parentNode.parentNode.style.display = "none";
         Array.from(minimize.parentNode.parentNode.getElementsByClassName("stn-content")).forEach((item, i) => {
           item.style.display = "none";
         });
-        p = minimize.parentNode.parentNode.parentNode;
+        p.setAttribute("data-h", p.style.height);
+        p.setAttribute("data-w", p.style.width);
         p.style.height = 0 + "px";
-        p.style.width = 69 + "px";
-        p.className = "sticky-note sticky-note-min";
+        p.style.width = 70 + "px";
+        p.classList.remove("sticky-note-size");
+        p.classList.add("sticky-note-min");
         // minimize.parentNode.getElementsByClassName("stn-btn").forEach((item, i) => {
         //   item.style.display = "block";
         // });
         minimize.style.display = e && e.upset ? "" : "none";
         minimize.innerHTML = "&#10064;";
+
         minimize.setAttribute("title", "Expand");
+        p.setAttribute("data-min", "true");
       } else {
         minimize.innerHTML = "&#9866;";
         Array.from(minimize.parentNode.parentNode.getElementsByClassName("stn-content")).forEach((item, i) => {
           item.style.display = "";
         });
         p = minimize.parentNode.parentNode.parentNode;
-        p.style.height = this.height + "px";
-        p.style.width = this.width  + "px";
-        p.className = "sticky-note sticky-note-size";
+        p.style.height = p.getAttribute("data-h");
+        p.style.width = p.getAttribute("data-w");
+        p.classList.remove("sticky-note-min");
+        p.classList.add("sticky-note-size");
         // minimize.parentNode.getElementsByClassName("stn-btn").style.display = e && e.upset ? "" : "none";
         minimize.setAttribute("title", "Minimize");
+        p.setAttribute("data-min", "false");
       }
-      window.minimized = !window.minimized;
     }
     i.appendChild(s);
     i.appendChild(r);
     i.appendChild(minimize);
+    //i.appendChild(pin);
     this.titlebar = i;
     function l() {
         s.style.display = "initial";
         r.style.display = "initial";
         minimize.style.display = "initial";
+        pin.style.display = "initial";
     }
     function a() {
         s.style.display = "none";
         r.style.display = "none";
         minimize.style.display = "none";
+        pin.style.display = "none";
     }
     var d = document.createElement("div");
     d.className = "sticky-note";
@@ -352,7 +377,7 @@ var StickyNote = function(e, t) {
         mouseleave = false;
         d.style.zIndex = 20;
         u = false;
-        if (document.activeElement !== d) {
+        if (document.Element !== d) {
             a()
         }
         o.contextMenus && o.contextMenus.parentNode.removeChild(o.contextMenus);

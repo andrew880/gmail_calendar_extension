@@ -6,7 +6,8 @@
     {
       "matches": ["<all_urls>"],
       "js": ["/external/api.js", "/external/jquery-3.5.1.min.js", "/external/sweetalert.min.js", "/external/jquery-ui.min.js",
-        "/functions/stickynote.js", "/functions/gcalendar.js", "/functions/whiteboard.js", "content.js"],
+        "/functions/utility.js",
+        "/functions/stickynote.js", "/functions/gcalendar.js", "/functions/sideboard.js", "content.js"],
       "css": ["/style/css/styles.css", "/style/css/sweetalert.css"]
     }
   ],
